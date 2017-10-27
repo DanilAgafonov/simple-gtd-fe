@@ -5,8 +5,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import PageNotFound from 'components/PageNotFound';
 import HorizontalLoader from 'components/HorizontalLoader';
 import Button from 'components/Button';
+import SpaceScreen from 'components/SpaceScreen';
 import LeftPaneContainer from 'containers/LeftPaneContainer';
-import RightPaneContainer from 'containers/RightPaneContainer';
 
 const Container = Flex.extend.attrs({
   direction: 'column',
@@ -67,7 +67,7 @@ const MainLayout = ({
             <Route
               path="/inbox"
               exact
-              component={RightPaneContainer}
+              component={SpaceScreen}
             />
             <Route
               component={PageNotFound}
