@@ -4,7 +4,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack",
-    "postinstall": "npm run build"
+    "prestart": "npm run build"
   },
   "license": "UNLICENSED",
   "private": true,
