@@ -28,7 +28,7 @@ function logoutFlow(tokenService) {
 function* loginFlow(tokenApi, tokenService, { payload: { email, password }, meta: { thunk } }) {
   try {
     const response = yield call([tokenApi, 'retrieve'], email, password);
-    const token = response.data.access_token;
+    const token = response.data.auth_token;
     tokenService.setToken(token);
     yield put(loginSuccess(thunk));
   } catch (error) {
@@ -54,7 +54,16 @@ function* loginFlow(tokenApi, tokenService, { payload: { email, password }, meta
 function* registrationFlow(
   usersService,
   tokenService,
-  { payload: { email, password, passwordConfirmation }, meta: { thunk } },
+  {
+    payload: {
+      email,
+      password,
+      passwordConfirmation,
+      firstName,
+      lastName,
+    },
+    meta: { thunk },
+  },
 ) {
   if (password !== passwordConfirmation) {
     yield put(registrationFail({
@@ -64,9 +73,9 @@ function* registrationFlow(
   }
 
   try {
-    const response = yield call([usersService, 'create'], email, password);
+    const response = yield call([usersService, 'create'], email, password, firstName, lastName);
     yield put(registrationSuccess(thunk));
-    const token = response.data.access_token;
+    const token = response.data.auth_token;
     tokenService.setToken(token);
     yield put(loginSuccess());
   } catch (error) {
@@ -78,7 +87,7 @@ function* registrationFlow(
   }
 }
 
-export default function* ({ apis: { users, token: tokenApi }, tokenService }) {
+export default function* ({ apis: { users, token: tokenApi }, token: tokenService }) {
   yield all([
     yield takeEvery(GET_CURRENT_USER, getCurrentUser, users),
     yield takeEvery(LOGOUT, logoutFlow, tokenService),

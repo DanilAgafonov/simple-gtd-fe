@@ -60,7 +60,7 @@ export default function configureStore() {
     module.hot.accept('store/sagas', () => {
       sagaTask.cancel();
       sagaTask.done.then(() => {
-        sagaTask = sagaMiddleware.run(rootSaga);
+        sagaTask = sagaMiddleware.run(rootSaga, services);
       });
     });
   }

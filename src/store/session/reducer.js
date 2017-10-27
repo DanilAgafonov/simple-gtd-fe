@@ -6,13 +6,14 @@ import {
   LOGOUT,
   REGISTRATION_FAIL,
   REGISTRATION,
-  REGISTRATION_SUCCESS,
+  REGISTRATION_SUCCESS, GET_CURRENT_USER_SUCCESS,
 } from './actions';
 
 const getInitialState = () => ({
   isAuthenticated: !!TokenService.getToken(),
   message: null,
   registrationErrors: null,
+  userId: null,
 });
 
 export default function (state = getInitialState(), action) {
@@ -36,6 +37,11 @@ export default function (state = getInitialState(), action) {
       return {
         ...state,
         registrationErrors: action.payload,
+      };
+    case GET_CURRENT_USER_SUCCESS:
+      return {
+        ...state,
+        userId: action.payload,
       };
     default:
       return state;

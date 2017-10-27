@@ -12,9 +12,9 @@ export default function () {
 
   instance.interceptors.request.use(config => ({
     ...config,
-    headers: {
-      ...config.headers,
-      Authorization: tokenService.getToken(),
+    params: {
+      ...config.params,
+      auth_token: tokenService.getToken(),
     },
   }));
 

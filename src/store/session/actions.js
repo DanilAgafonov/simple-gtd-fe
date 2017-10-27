@@ -80,13 +80,15 @@ export function logout(message) {
   };
 }
 
-export function registration(email, password, passwordConfirmation) {
+export function registration(email, password, passwordConfirmation, firstName, lastName) {
   return {
     type: REGISTRATION,
     payload: {
       email,
       password,
       passwordConfirmation,
+      firstName,
+      lastName,
     },
     meta: {
       thunk: true,

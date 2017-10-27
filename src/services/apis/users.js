@@ -7,10 +7,14 @@ export default class UsersApi {
     return this.api.get('/user');
   }
 
-  create(email, password) {
+  create(email, password, firstName, lastName) {
     return this.api.post('/users', {
-      email,
-      password,
+      user: {
+        email,
+        password,
+        first_name: firstName,
+        last_name: lastName,
+      },
     });
   }
 }

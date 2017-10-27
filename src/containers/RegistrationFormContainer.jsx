@@ -20,11 +20,19 @@ export default class RegistrationFormContainer extends Component {
     email: '',
     password: '',
     passwordConfirmation: '',
+    firstName: '',
+    lastName: '',
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.registration(this.state.email, this.state.password, this.state.passwordConfirmation);
+    this.props.registration(
+      this.state.email,
+      this.state.password,
+      this.state.passwordConfirmation,
+      this.state.firstName,
+      this.state.lastName,
+    );
   };
 
   handleChangeEmail = (event) => {
@@ -39,6 +47,14 @@ export default class RegistrationFormContainer extends Component {
     this.setState({ passwordConfirmation: event.target.value });
   };
 
+  handleChangeFirstName = (event) => {
+    this.setState({ firstName: event.target.value });
+  };
+
+  handleChangeLastName = (event) => {
+    this.setState({ lastName: event.target.value });
+  };
+
   render() {
     return (
       <RegistrationForm
@@ -48,6 +64,8 @@ export default class RegistrationFormContainer extends Component {
         onChangeEmail={this.handleChangeEmail}
         onChangePassword={this.handleChangePassword}
         onChangePasswordConfirmation={this.handleChangePasswordConfirmation}
+        onChangeFirstName={this.handleChangeFirstName}
+        onChangeLastName={this.handleChangeLastName}
       />
     );
   }

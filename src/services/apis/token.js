@@ -4,7 +4,7 @@ export default class TokenApi {
   }
 
   retrieve(email, password) {
-    return this.api.post('/token', {
+    return this.api.post('/sessions', {
       email,
       password,
     });

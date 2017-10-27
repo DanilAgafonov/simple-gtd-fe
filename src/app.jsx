@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { ThemeProvider, injectGlobal } from 'styled-components';
 import { Helmet } from 'react-helmet';
-import MainLayout from 'components/MainLayout';
+import MainContainer from 'containers/MainContainer';
 import OnlyForUnauthenticatedRoute from 'components/OnlyForUnauthenticatedRoute';
 import LoginScreen from 'components/LoginScreen';
 import RegistrationScreen from 'components/RegistrationScreen';
@@ -63,7 +63,7 @@ export default class SharedContainer extends Component {
           <Route
             render={() => (
               this.props.isAuthenticated ? (
-                <MainLayout />
+                <MainContainer />
               ) : (
                 <Redirect
                   to={{
