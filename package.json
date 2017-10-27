@@ -2,7 +2,8 @@
   "name": "gtd-frontend",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "node index.js",
+    "dev": "webpack-dev-server",
     "build": "webpack",
     "prestart": "npm run build"
   },
