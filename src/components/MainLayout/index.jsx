@@ -5,7 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import PageNotFound from 'components/PageNotFound';
 import HorizontalLoader from 'components/HorizontalLoader';
 import Button from 'components/Button';
-import LeftPaneContainer from 'containers/LeftPaneContainer';
+import LeftPane from 'components/LeftPane';
 import RightPaneContainer from 'containers/RightPaneContainer';
 
 const Container = Flex.extend.attrs({
@@ -25,6 +25,12 @@ const MainContainer = Flex.extend.attrs({
   direction: 'column',
 })`
   height: 100vh;
+`;
+
+const LeftPaneWrapper = Box.extend.attrs({
+  flex: '1 1 30%',
+})`
+  border-right: 1px solid #eeeeee;
 `;
 
 const ErrorMessage = Box.extend`
@@ -58,9 +64,9 @@ const MainLayout = ({
   return (
     <MainContainer>
       <ContentContainer>
-        <Box flex="1 1 30%">
-          <LeftPaneContainer />
-        </Box>
+        <LeftPaneWrapper>
+          <LeftPane />
+        </LeftPaneWrapper>
         <Box flex="1 1 70%">
           <Redirect from="/" to="/inbox" />
           <Switch>

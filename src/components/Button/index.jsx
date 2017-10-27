@@ -1,12 +1,27 @@
+import React from 'react';
+import styled from 'styled-components';
 import { Box } from 'grid-styled';
 import { darken, lighten } from 'polished';
 import theme from 'config/theme';
 
-const Button = Box.withComponent('button').extend`
+const BaseElement = Box.withComponent('button');
+
+const BaseButton = (props) => {
+  const next = { ...props };
+  delete next.big;
+  delete next.squared;
+  delete next.fullWidth;
+
+  return (
+    <BaseElement {...next} />
+  );
+};
+
+const Button = styled(BaseButton)`
   text-decoration: none;
   outline: 0;
   border: none;
-  border-radius: 50px;
+  border-radius: ${props => (props.squared ? '0' : '50px')};
   color: ${(props) => {
     if (props.primary) {
       return props.disabled ? '#f3f3f3' : '#ffffff';
@@ -25,7 +40,7 @@ const Button = Box.withComponent('button').extend`
   font-weight: ${props => (props.big ? 400 : 300)};
   font-family: inherit;
   line-height: 1em;
-  display: inline-block;
+  display: ${props => (props.fullWidth ? 'block' : 'inline-block')};
   
   ${props => (props.disabled ? '' : `
     &:hover,
