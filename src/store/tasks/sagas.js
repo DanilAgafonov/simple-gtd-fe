@@ -1,4 +1,5 @@
-import { put, takeEvery, call, all } from 'redux-saga/effects';
+import { put, takeEvery, call, all, select } from 'redux-saga/effects';
+import { loadSpaceSuccess } from 'store/spaces/actions';
 import {
   CREATE_TASK,
   createTaskSuccess,
@@ -8,13 +9,20 @@ import {
 function* createFlow(
   tasksService,
   {
-    payload: text,
+    payload,
     meta: { thunk },
   },
 ) {
   try {
-    const response = yield call([tasksService, 'create'], text);
+    const response = yield call([tasksService, 'create'], payload);
     yield put(createTaskSuccess(response.data, thunk));
+    yield put(loadSpaceSuccess({
+      id: payload.space_id,
+      tasks: [
+        ...(yield select(state => state.entities.spaces[payload.space_id].tasks)),
+        response.data.id,
+      ],
+    }));
   } catch (error) {
     yield put(createTaskFail('Fail.', thunk));
   }

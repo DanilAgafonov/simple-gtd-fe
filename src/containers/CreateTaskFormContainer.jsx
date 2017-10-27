@@ -14,6 +14,10 @@ import CreateTaskForm from 'components/CreateTaskForm';
 export default class CreateTaskFormContainer extends Component {
   static propTypes = {
     createTask: PropTypes.func.isRequired,
+    spaceId: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
   };
 
   state = {
@@ -22,7 +26,13 @@ export default class CreateTaskFormContainer extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.createTask(this.state.text);
+    this.props.createTask({
+      text: this.state.text,
+      space_id: this.props.spaceId,
+    });
+    this.setState({
+      text: '',
+    });
   };
 
   handleChangeText = (event) => {

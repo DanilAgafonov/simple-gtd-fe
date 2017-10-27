@@ -6,4 +6,8 @@ export default class SpacesApi {
   getAll() {
     return this.api.get('/spaces');
   }
+
+  getOne(id) {
+    return this.api.get(`/spaces/${id}`);
+  }
 }

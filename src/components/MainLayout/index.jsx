@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Box } from 'grid-styled';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import PageNotFound from 'components/PageNotFound';
 import HorizontalLoader from 'components/HorizontalLoader';
 import Button from 'components/Button';
 import LeftPane from 'components/LeftPane';
-import SpaceScreen from 'components/SpaceScreen';
+import EmptyScreen from 'components/EmptyScreen';
+import SpaceScreenContainer from 'containers/SpaceScreenContainer';
 
 const Container = Flex.extend.attrs({
   direction: 'column',
@@ -32,6 +33,10 @@ const LeftPaneWrapper = Box.extend.attrs({
 })`
   border-right: 1px solid #eeeeee;
 `;
+
+const RightPaneWrapper = Box.extend.attrs({
+  flex: '1 1 70%',
+})``;
 
 const ErrorMessage = Box.extend`
   text-align: center;
@@ -67,19 +72,23 @@ const MainLayout = ({
         <LeftPaneWrapper>
           <LeftPane />
         </LeftPaneWrapper>
-        <Box flex="1 1 70%">
-          <Redirect from="/" to="/inbox" />
+        <RightPaneWrapper>
           <Switch>
             <Route
-              path="/inbox"
+              path="/"
               exact
-              component={SpaceScreen}
+              component={EmptyScreen}
+            />
+            <Route
+              path="/spaces/:id"
+              exact
+              component={SpaceScreenContainer}
             />
             <Route
               component={PageNotFound}
             />
           </Switch>
-        </Box>
+        </RightPaneWrapper>
       </ContentContainer>
     </MainContainer>
   );

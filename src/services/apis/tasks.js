@@ -3,9 +3,7 @@ export default class TaskApi {
     this.api = api;
   }
 
-  create(text) {
-    return this.api.post('/tasks', {
-      text,
-    });
+  create(data) {
+    return this.api.post('/tasks', data);
   }
 }

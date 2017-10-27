@@ -61,9 +61,9 @@ export default class SharedContainer extends Component {
             component={RegistrationScreen}
           />
           <Route
-            render={() => (
+            render={(props) => (
               this.props.isAuthenticated ? (
-                <MainContainer />
+                <MainContainer {...props} />
               ) : (
                 <Redirect
                   to={{

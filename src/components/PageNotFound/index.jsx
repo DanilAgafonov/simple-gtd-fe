@@ -1,9 +1,9 @@
 import React from 'react';
-import Container from 'components/Container';
+import { Box } from 'grid-styled';
 import Link from 'components/Link';
 
 const PageNotFound = () => (
-  <Container py="2em">
+  <Box p="2em">
     <h1>404 &mdash; page not found</h1>
     <p>
       Perhaps the page you requested was moved or deleted.
@@ -14,7 +14,7 @@ const PageNotFound = () => (
       <br />
       &mdash; Go to <Link to="/">home page</Link>
     </p>
-  </Container>
+  </Box>
 );
 
 export default PageNotFound;
