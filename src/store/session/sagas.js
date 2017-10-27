@@ -2,11 +2,14 @@ import { put, takeEvery, call, all } from 'redux-saga/effects';
 import {
   LOGIN,
   LOGOUT,
+  REGISTRATION,
   GET_CURRENT_USER,
   getCurrentUserSuccess,
   getCurrentUserFail,
   loginSuccess,
   loginFail,
+  registrationFail,
+  registrationSuccess,
 } from './actions';
 
 function* getCurrentUser(usersService, { meta: { thunk } }) {
@@ -48,10 +51,38 @@ function* loginFlow(tokenApi, tokenService, { payload: { email, password }, meta
   }
 }
 
+function* registrationFlow(
+  usersService,
+  tokenService,
+  { payload: { email, password, passwordConfirmation }, meta: { thunk } },
+) {
+  if (password !== passwordConfirmation) {
+    yield put(registrationFail({
+      password: 'Password and password confirmation must be equal',
+    }, thunk));
+    return;
+  }
+
+  try {
+    const response = yield call([usersService, 'create'], email, password);
+    yield put(registrationSuccess(thunk));
+    const token = response.data.access_token;
+    tokenService.setToken(token);
+    yield put(loginSuccess());
+  } catch (error) {
+    if (error.response) {
+      yield put(registrationFail(error.response.data || 'Unexpected error.', thunk));
+    } else {
+      yield put(registrationFail('Unexpected error.', thunk));
+    }
+  }
+}
+
 export default function* ({ apis: { users, token: tokenApi }, tokenService }) {
   yield all([
     yield takeEvery(GET_CURRENT_USER, getCurrentUser, users),
     yield takeEvery(LOGOUT, logoutFlow, tokenService),
     yield takeEvery(LOGIN, loginFlow, tokenApi, tokenService),
+    yield takeEvery(REGISTRATION, registrationFlow, users, tokenService),
   ]);
 }

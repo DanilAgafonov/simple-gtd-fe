@@ -4,11 +4,15 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  REGISTRATION_FAIL,
+  REGISTRATION,
+  REGISTRATION_SUCCESS,
 } from './actions';
 
 const getInitialState = () => ({
   isAuthenticated: !!TokenService.getToken(),
   message: null,
+  registrationErrors: null,
 });
 
 export default function (state = getInitialState(), action) {
@@ -21,6 +25,17 @@ export default function (state = getInitialState(), action) {
       return {
         ...getInitialState(),
         message: action.payload.message,
+      };
+    case REGISTRATION:
+    case REGISTRATION_SUCCESS:
+      return {
+        ...state,
+        registrationErrors: null,
+      };
+    case REGISTRATION_FAIL:
+      return {
+        ...state,
+        registrationErrors: action.payload,
       };
     default:
       return state;

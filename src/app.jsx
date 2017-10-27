@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet';
 import MainLayout from 'components/MainLayout';
 import OnlyForUnauthenticatedRoute from 'components/OnlyForUnauthenticatedRoute';
 import LoginScreen from 'components/LoginScreen';
+import RegistrationScreen from 'components/RegistrationScreen';
 
 import theme from 'config/theme';
 
@@ -53,6 +54,11 @@ export default class SharedContainer extends Component {
             path="/login"
             exact
             component={LoginScreen}
+          />
+          <OnlyForUnauthenticatedRoute
+            path="/registration"
+            exact
+            component={RegistrationScreen}
           />
           <Route
             render={() => (

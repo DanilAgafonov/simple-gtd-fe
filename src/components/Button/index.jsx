@@ -20,7 +20,7 @@ const Button = Box.withComponent('button').extend`
     return props.disabled ? darken(0.03, '#ffffff') : darken(0.05, '#ffffff');
   }};
   box-shadow: ${props => (props.primary ? `0 0 10px 0 ${theme.colors.accent1}` : 'none')};
-  padding: ${props => (props.big ? '0.87em 2em 1.2em' : '0.4em 1em 0.67em')};
+  padding: ${props => (props.big ? '1em 2em' : '0.5em 1em')};
   font-size: 1em;
   font-weight: ${props => (props.big ? 400 : 300)};
   font-family: inherit;

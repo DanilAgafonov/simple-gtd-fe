@@ -5,6 +5,9 @@ export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
+export const REGISTRATION = 'REGISTRATION';
+export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS';
+export const REGISTRATION_FAIL = 'REGISTRATION_FAIL';
 
 export function getCurrentUser() {
   return {
@@ -76,3 +79,38 @@ export function logout(message) {
     },
   };
 }
+
+export function registration(email, password, passwordConfirmation) {
+  return {
+    type: REGISTRATION,
+    payload: {
+      email,
+      password,
+      passwordConfirmation,
+    },
+    meta: {
+      thunk: true,
+    },
+  };
+}
+
+export function registrationSuccess(thunk) {
+  return {
+    type: REGISTRATION_SUCCESS,
+    meta: {
+      thunk,
+    },
+  };
+}
+
+export function registrationFail(payload, thunk) {
+  return {
+    type: REGISTRATION_FAIL,
+    error: true,
+    payload,
+    meta: {
+      thunk,
+    },
+  };
+}
+

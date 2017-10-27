@@ -2,31 +2,29 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isPending } from 'redux-saga-thunk';
-import { login, LOGIN } from 'store/session/actions';
-import LoginForm from 'components/LoginScreen/Form';
+import { REGISTRATION, registration } from 'store/session/actions';
+import RegistrationForm from 'components/RegistrationScreen/Form';
 
 @connect(state => ({
-  message: state.session.message,
-  loginLoadingIsPending: isPending(state, LOGIN),
+  errors: state.session.registrationErrors,
+  registrationLoadingIsPending: isPending(state, REGISTRATION),
 }), {
-  login,
+  registration,
 })
-export default class LoginFormContainer extends Component {
+export default class RegistrationFormContainer extends Component {
   static propTypes = {
-    login: PropTypes.func.isRequired,
+    registration: PropTypes.func.isRequired,
   };
 
   state = {
     email: '',
     password: '',
+    passwordConfirmation: '',
   };
-
-  componentDidMount() {
-  }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.login(this.state.email, this.state.password);
+    this.props.registration(this.state.email, this.state.password, this.state.passwordConfirmation);
   };
 
   handleChangeEmail = (event) => {
@@ -37,14 +35,19 @@ export default class LoginFormContainer extends Component {
     this.setState({ password: event.target.value });
   };
 
+  handleChangePasswordConfirmation = (event) => {
+    this.setState({ passwordConfirmation: event.target.value });
+  };
+
   render() {
     return (
-      <LoginForm
+      <RegistrationForm
         {...this.props}
         {...this.state}
         onSubmit={this.handleSubmit}
         onChangeEmail={this.handleChangeEmail}
         onChangePassword={this.handleChangePassword}
+        onChangePasswordConfirmation={this.handleChangePasswordConfirmation}
       />
     );
   }

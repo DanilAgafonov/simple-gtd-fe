@@ -4,8 +4,18 @@ import { Box } from 'grid-styled';
 import Alert from 'components/Alert';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
+import HorizontalLoader from 'components/HorizontalLoader';
+import Link from 'components/Link';
 
-const LoginForm = ({ onChangeEmail, onChangePassword, email, password, message, onSubmit }) => (
+const LoginForm = ({
+  onChangeEmail,
+  onChangePassword,
+  email,
+  password,
+  message,
+  onSubmit,
+  loginLoadingIsPending,
+}) => (
   <div>
     {message ? (
       <Alert mb="1em">{message}</Alert>
@@ -17,7 +27,15 @@ const LoginForm = ({ onChangeEmail, onChangePassword, email, password, message, 
       <Box mb="1em">
         <TextField value={password} type="password" onChange={onChangePassword} label="Password" name="password" />
       </Box>
-      <Button primary type="submit">Log in</Button>
+
+      {loginLoadingIsPending ? (
+        <HorizontalLoader />
+      ) : (
+        <Box>
+          <Button primary type="submit">Log in</Button>
+          <Link to="/registration">Register</Link>
+        </Box>
+      )}
     </form>
   </div>
 );
@@ -29,6 +47,7 @@ LoginForm.propTypes = {
   onChangePassword: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
+  loginLoadingIsPending: PropTypes.bool.isRequired,
 };
 
 export default LoginForm;

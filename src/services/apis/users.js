@@ -6,4 +6,11 @@ export default class UsersApi {
   getCurrentUser() {
     return this.api.get('/user');
   }
+
+  create(email, password) {
+    return this.api.post('/users', {
+      email,
+      password,
+    });
+  }
 }
