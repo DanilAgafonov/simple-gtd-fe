@@ -5,7 +5,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import PageNotFound from 'components/PageNotFound';
 import HorizontalLoader from 'components/HorizontalLoader';
 import Button from 'components/Button';
-import Header from 'components/Header';
+import LeftPaneContainer from 'containers/LeftPaneContainer';
+import RightPaneContainer from 'containers/RightPaneContainer';
 
 const Container = Flex.extend.attrs({
   direction: 'column',
@@ -56,12 +57,9 @@ const MainLayout = ({
 
   return (
     <MainContainer>
-      <Box flex="none">
-        <Header />
-      </Box>
       <ContentContainer>
         <Box flex="1 1 30%">
-          1
+          <LeftPaneContainer />
         </Box>
         <Box flex="1 1 70%">
           <Redirect from="/" to="/inbox" />
@@ -69,7 +67,7 @@ const MainLayout = ({
             <Route
               path="/inbox"
               exact
-              render={() => (1)}
+              component={RightPaneContainer}
             />
             <Route
               component={PageNotFound}
