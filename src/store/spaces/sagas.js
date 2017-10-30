@@ -3,12 +3,15 @@ import {
   LOAD_SPACES,
   LOAD_SPACE,
   CREATE_SPACE,
+  DELETE_SPACE,
   loadSpacesSuccess,
   loadSpacesFail,
   loadSpaceSuccess,
   loadSpaceFail,
   createSpaceSuccess,
   createSpaceFail,
+  deleteSpaceSuccess,
+  deleteSpaceFail,
 } from './actions';
 
 function* loadSpaces(spacesApi, { meta: { thunk } }) {
@@ -38,10 +41,20 @@ function* createSpace(spacesApi, { payload: { name }, meta: { thunk } }) {
   }
 }
 
+function* deleteSpace(spacesApi, { payload: { id }, meta: { thunk } }) {
+  try {
+    yield call([spacesApi, 'deleteSpace'], id);
+    yield put(deleteSpaceSuccess(id, thunk));
+  } catch (error) {
+    yield put(deleteSpaceFail(thunk));
+  }
+}
+
 export default function* ({ apis: { spaces } }) {
   yield all([
     yield takeEvery(LOAD_SPACES, loadSpaces, spaces),
     yield takeEvery(LOAD_SPACE, loadSpace, spaces),
     yield takeEvery(CREATE_SPACE, createSpace, spaces),
+    yield takeEvery(DELETE_SPACE, deleteSpace, spaces),
   ]);
 }

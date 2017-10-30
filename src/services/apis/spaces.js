@@ -14,4 +14,8 @@ export default class SpacesApi {
   create(name) {
     return this.api.post('/spaces', { name });
   }
+
+  deleteSpace(id) {
+    return this.api.delete(`/spaces/${id}`);
+  }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Box } from 'grid-styled';
+import DeleteIcon from 'react-icons/lib/fa/trash';
 import HorizontalLoader from 'components/HorizontalLoader';
 import Button from 'components/Button';
 import CreateTaskFormContainer from 'containers/CreateTaskFormContainer';
@@ -30,6 +31,7 @@ const SpaceScreen = ({
   loadSpace,
   isPending,
   hasFailed,
+  deleteSpace,
 }) => {
   if (isPending) {
     return (
@@ -57,7 +59,10 @@ const SpaceScreen = ({
   return (
     <Wrapper>
       <SpaceHeader>
-        <h1>{space.name}</h1>
+        <Flex justify="space-between" align="center">
+          <h1>{space.name}</h1>
+          <Button onClick={deleteSpace}><DeleteIcon /></Button>
+        </Flex>
         <CreateTaskFormContainer spaceId={space.id} />
       </SpaceHeader>
       <TasksListContainer tasks={space.tasks} />
@@ -72,6 +77,7 @@ SpaceScreen.propTypes = {
     tasks: PropTypes.array.isRequired,
   }),
   loadSpace: PropTypes.func.isRequired,
+  deleteSpace: PropTypes.func.isRequired,
   hasFailed: PropTypes.bool.isRequired,
   isPending: PropTypes.bool.isRequired,
 };

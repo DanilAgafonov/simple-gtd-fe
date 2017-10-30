@@ -10,6 +10,10 @@ export const CREATE_SPACE = 'CREATE_SPACE';
 export const CREATE_SPACE_SUCCESS = 'CREATE_SPACE_SUCCESS';
 export const CREATE_SPACE_FAIL = 'CREATE_SPACE_FAIL';
 
+export const DELETE_SPACE = 'DELETE_SPACE';
+export const DELETE_SPACE_SUCCESS = 'DELETE_SPACE_SUCCESS';
+export const DELETE_SPACE_FAIL = 'DELETE_SPACE_FAIL';
+
 export function loadSpaces() {
   return {
     type: LOAD_SPACES,
@@ -105,3 +109,38 @@ export function createSpaceFail(thunk) {
     },
   };
 }
+
+export function deleteSpace(id) {
+  return {
+    type: DELETE_SPACE,
+    payload: {
+      id,
+    },
+    meta: {
+      thunk: true,
+    },
+  };
+}
+
+export function deleteSpaceSuccess(id, thunk) {
+  return {
+    type: DELETE_SPACE_SUCCESS,
+    payload: {
+      id,
+    },
+    meta: {
+      thunk,
+    },
+  };
+}
+
+export function deleteSpaceFail(thunk) {
+  return {
+    type: DELETE_SPACE_FAIL,
+    error: true,
+    meta: {
+      thunk,
+    },
+  };
+}
+
