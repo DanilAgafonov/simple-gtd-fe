@@ -6,6 +6,10 @@ export const LOAD_SPACE = 'LOAD_SPACE';
 export const LOAD_SPACE_SUCCESS = 'LOAD_SPACE_SUCCESS';
 export const LOAD_SPACE_FAIL = 'LOAD_SPACE_FAIL';
 
+export const CREATE_SPACE = 'CREATE_SPACE';
+export const CREATE_SPACE_SUCCESS = 'CREATE_SPACE_SUCCESS';
+export const CREATE_SPACE_FAIL = 'CREATE_SPACE_FAIL';
+
 export function loadSpaces() {
   return {
     type: LOAD_SPACES,
@@ -62,6 +66,39 @@ export function loadSpaceSuccess(payload, thunk) {
 export function loadSpaceFail(thunk) {
   return {
     type: LOAD_SPACE_FAIL,
+    error: true,
+    meta: {
+      thunk,
+    },
+  };
+}
+
+export function createSpace(name) {
+  return {
+    type: CREATE_SPACE,
+    payload: {
+      name,
+    },
+    meta: {
+      thunk: true,
+    },
+  };
+}
+
+export function createSpaceSuccess(payload, thunk) {
+  return {
+    type: CREATE_SPACE_SUCCESS,
+    payload,
+    meta: {
+      thunk,
+      entities: 'spaces',
+    },
+  };
+}
+
+export function createSpaceFail(thunk) {
+  return {
+    type: CREATE_SPACE_FAIL,
     error: true,
     meta: {
       thunk,

@@ -43,7 +43,7 @@ const LeftPane = () => (
       <SpacesListContainer />
     </ListWrapper>
     <BottomBar>
-      <Button squared big><PlusIcon /> Add space</Button>
+      <ButtonLink to="/spaces/new" squared big><PlusIcon /> Add space</ButtonLink>
       <Button squared big><SettingsIcon /></Button>
     </BottomBar>
   </Container>

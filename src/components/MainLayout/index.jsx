@@ -8,6 +8,7 @@ import Button from 'components/Button';
 import LeftPane from 'components/LeftPane';
 import EmptyScreen from 'components/EmptyScreen';
 import SpaceScreenContainer from 'containers/SpaceScreenContainer';
+import NewSpaceScreenContainer from 'containers/NewSpaceScreenContainer';
 
 const Container = Flex.extend.attrs({
   direction: 'column',
@@ -78,6 +79,11 @@ const MainLayout = ({
               path="/"
               exact
               component={EmptyScreen}
+            />
+            <Route
+              path="/spaces/new"
+              exact
+              component={NewSpaceScreenContainer}
             />
             <Route
               path="/spaces/:id"

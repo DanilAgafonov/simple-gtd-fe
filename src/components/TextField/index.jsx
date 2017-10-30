@@ -24,6 +24,10 @@ const Input = styled.input`
     border-color: ${theme.colors.primary1};
     box-shadow: inset 0 0 10px -2px ${lighten(0.2, theme.colors.primary1)}, 0 0 10px -3px ${lighten(0.2, theme.colors.primary1)};
   }
+  
+  &::placeholder {
+    color: ${theme.colors.alternateText};
+  }
 `;
 
 const Container = styled.div``;
@@ -48,12 +52,23 @@ const TextField = ({
   className,
   meta: { error },
   type,
+  placeholder,
+  inputRef,
 }) => (
-  <Container className={className}>
+  <Container>
     {label ? (
       <Label htmlFor={name}>{label}</Label>
     ) : null}
-    <Input type={type} value={value} onChange={onChange} disabled={disabled} id={name} />
+    <Input
+      type={type}
+      value={value}
+      onChange={onChange}
+      disabled={disabled}
+      id={name}
+      className={className}
+      placeholder={placeholder}
+      innerRef={inputRef}
+    />
     {error ? (
       <ErrorMessage>{Array.isArray(error) ? error.join(' ') : error}</ErrorMessage>
     ) : null}
@@ -63,7 +78,9 @@ const TextField = ({
 TextField.propTypes = {
   value: PropTypes.string.isRequired,
   name: PropTypes.string,
+  placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  inputRef: PropTypes.func,
   disabled: PropTypes.bool,
   label: PropTypes.node,
   className: PropTypes.string,

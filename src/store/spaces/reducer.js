@@ -1,6 +1,6 @@
 import {
   LOAD_SPACES_SUCCESS,
-  LOAD_SPACES,
+  LOAD_SPACES, CREATE_SPACE_SUCCESS,
 } from './actions';
 
 const getInitialState = () => ({
@@ -15,6 +15,11 @@ export default function (state = getInitialState(), action) {
       return {
         ...getInitialState(),
         list: action.payload,
+      };
+    case CREATE_SPACE_SUCCESS:
+      return {
+        ...state,
+        list: [...state.list, action.payload],
       };
     default:
       return state;

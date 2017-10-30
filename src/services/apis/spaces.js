@@ -10,4 +10,8 @@ export default class SpacesApi {
   getOne(id) {
     return this.api.get(`/spaces/${id}`);
   }
+
+  create(name) {
+    return this.api.post('/spaces', { name });
+  }
 }

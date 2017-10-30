@@ -42,10 +42,15 @@ const Button = styled(BaseButton)`
   line-height: 1em;
   display: ${props => (props.fullWidth ? 'block' : 'inline-block')};
   
+  ${props => ((props.active && !props.disabled) ? `
+    background-color: ${darken(0.2, (props.primary ? theme.colors.accent1 : '#ffffff'))};
+    color: ${props.primary ? '#ffffff' : theme.colors.primary1};
+  ` : '')}
+  
   ${props => (props.disabled ? '' : `
     &:hover,
     &:focus {
-      background-color: ${darken(0.2, (props.primary ? theme.colors.accent1 : '#ffffff'))};
+      ${props.active ? '' : `background-color: ${darken(0.1, (props.primary ? theme.colors.accent1 : '#ffffff'))};`}
       color: ${props.primary ? '#ffffff' : theme.colors.primary1};
     }
   `)}
