@@ -10,4 +10,8 @@ export default class TaskApi {
   deleteTask(id) {
     return this.api.delete(`/tasks/${id}`);
   }
+
+  update(id, data) {
+    return this.api.patch(`/tasks/${id}`, data);
+  }
 }

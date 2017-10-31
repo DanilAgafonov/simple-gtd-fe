@@ -27,11 +27,23 @@ const ExpandButton = Button.extend`
    background: none;
 `;
 
-const TaskCard = ({ text, expanded, toggleExpand, deleteTask }) => (
+const TaskCard = ({
+  done,
+  text,
+  expanded,
+  toggleExpand,
+  deleteTask,
+  toggleDone,
+  updateInProgress,
+}) => (
   <Container expanded={expanded}>
     <Flex justify="space-between" align="center">
       <Flex align="center">
-        <Checkbox />
+        <Checkbox
+          checked={done || false}
+          onChange={toggleDone}
+          disabled={updateInProgress}
+        />
         <strong>{text}</strong>
       </Flex>
       <ExpandButton onClick={toggleExpand}>
@@ -50,7 +62,10 @@ TaskCard.propTypes = {
   text: PropTypes.string.isRequired,
   expanded: PropTypes.bool.isRequired,
   toggleExpand: PropTypes.func.isRequired,
+  toggleDone: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
+  updateInProgress: PropTypes.bool.isRequired,
+  done: PropTypes.bool,
 };
 
 export default TaskCard;

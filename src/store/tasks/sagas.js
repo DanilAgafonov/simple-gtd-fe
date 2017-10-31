@@ -3,10 +3,13 @@ import { loadSpaceSuccess } from 'store/spaces/actions';
 import {
   CREATE_TASK,
   DELETE_TASK,
+  UPDATE_TASK,
   createTaskSuccess,
   createTaskFail,
   deleteTaskSuccess,
   deleteTaskFail,
+  updateTaskSuccess,
+  updateTaskFail,
 } from './actions';
 
 function* createFlow(
@@ -45,9 +48,19 @@ function* deleteFlow(tasksService, { payload: { id, spaceId }, meta: { thunk } }
   }
 }
 
+function* updateFlow(tasksService, { payload: { id, data }, meta: { thunk } }) {
+  try {
+    const response = yield call([tasksService, 'update'], id, data);
+    yield put(updateTaskSuccess(response.data, thunk));
+  } catch (error) {
+    yield put(updateTaskFail(thunk));
+  }
+}
+
 export default function* ({ apis: { tasks } }) {
   yield all([
     yield takeEvery(CREATE_TASK, createFlow, tasks),
     yield takeEvery(DELETE_TASK, deleteFlow, tasks),
+    yield takeEvery(UPDATE_TASK, updateFlow, tasks),
   ]);
 }
