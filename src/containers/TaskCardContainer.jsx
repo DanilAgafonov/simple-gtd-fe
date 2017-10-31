@@ -70,11 +70,6 @@ export default class TaskCardContainer extends Component {
       deleteHasFailed: false,
     }, () => {
       this.props.deleteTask()
-        .then(() => {
-          this.setState({
-            deleteInProgress: false,
-          });
-        })
         .catch(() => {
           this.setState({
             deleteInProgress: false,
