@@ -43,6 +43,7 @@ export default class SharedContainer extends Component {
     return [
       <Helmet
         titleTemplate="%s :: Simple GTD"
+        defaultTitle="Simple GTD"
         key="helmet"
       >
         <meta charSet="utf-8" />
