@@ -7,7 +7,7 @@ import Button from 'components/Button';
 const CreateTaskForm = ({ text, onSubmit, onChangeText }) => (
   <form onSubmit={onSubmit}>
     <Box mb="1em">
-      <TextField value={text} type="text" label="Text" name="text" onChange={onChangeText} />
+      <TextField value={text} type="text" placeholder="Enter task name" name="text" onChange={onChangeText} />
     </Box>
 
     <Box>
