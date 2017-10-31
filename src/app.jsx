@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -62,7 +61,7 @@ export default class SharedContainer extends Component {
             component={RegistrationScreen}
           />
           <Route
-            render={(props) => (
+            render={props => (
               this.props.isAuthenticated ? (
                 <MainContainer {...props} />
               ) : (
