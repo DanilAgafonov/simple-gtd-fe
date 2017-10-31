@@ -19,6 +19,7 @@ export default class TaskCardContainer extends Component {
     updateTask: PropTypes.func.isRequired,
     deleteTask: PropTypes.func.isRequired,
     done: PropTypes.bool,
+    text: PropTypes.string.isRequired,
   };
 
   state = {
@@ -27,6 +28,8 @@ export default class TaskCardContainer extends Component {
     updateHasFailed: false,
     deleteInProgress: false,
     deleteHasFailed: false,
+    editableText: '',
+    isTextEditing: false,
   };
 
   toggleExpand = () => {
@@ -36,26 +39,30 @@ export default class TaskCardContainer extends Component {
   };
 
   toggleDone = () => {
+    this.updateTask({
+      done: !this.props.done,
+    });
+  };
+
+  updateTask = data => new Promise((resolve, reject) => {
     this.setState({
       updateInProgress: true,
       updateHasFailed: false,
     }, () => {
-      this.props.updateTask({
-        done: !this.props.done,
-      })
+      this.props.updateTask(data)
         .then(() => {
           this.setState({
             updateInProgress: false,
-          });
+          }, () => { resolve(); });
         })
         .catch(() => {
           this.setState({
             updateInProgress: false,
             updateHasFailed: true,
-          });
+          }, () => { reject(); });
         });
     });
-  };
+  });
 
   deleteTask = () => {
     this.setState({
@@ -77,6 +84,45 @@ export default class TaskCardContainer extends Component {
     });
   };
 
+  startEditText = (text = this.props.text) => {
+    this.setState({
+      isTextEditing: true,
+    }, () => {
+      this.textInput.focus();
+      this.setState({
+        editableText: text,
+      });
+    });
+  };
+
+  endEditText = () => {
+    this.setState({
+      isTextEditing: false,
+      editableText: '',
+    });
+  };
+
+  bindTextInputRef = (input) => {
+    this.textInput = input;
+  };
+
+  handleChangeText = (event) => {
+    this.setState({
+      editableText: event.target.value,
+    });
+  };
+
+  handleSubmitText = (event) => {
+    event.preventDefault();
+    const text = this.state.editableText;
+    this.updateTask({
+      text,
+    })
+      .then(() => {
+        this.endEditText();
+      });
+  };
+
   render() {
     return (
       <TaskCard
@@ -85,6 +131,11 @@ export default class TaskCardContainer extends Component {
         toggleExpand={this.toggleExpand}
         toggleDone={this.toggleDone}
         deleteTask={this.deleteTask}
+        textInputRef={this.bindTextInputRef}
+        startEditText={this.startEditText}
+        endEditText={this.endEditText}
+        onChangeText={this.handleChangeText}
+        onSubmitText={this.handleSubmitText}
       />
     );
   }

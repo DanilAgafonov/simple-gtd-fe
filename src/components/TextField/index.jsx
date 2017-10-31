@@ -48,6 +48,7 @@ const TextField = ({
   name,
   value,
   onChange,
+  onBlur,
   disabled,
   className,
   meta: { error },
@@ -63,6 +64,7 @@ const TextField = ({
       type={type}
       value={value}
       onChange={onChange}
+      onBlur={onBlur}
       disabled={disabled}
       id={name}
       className={className}
@@ -80,6 +82,7 @@ TextField.propTypes = {
   name: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
   inputRef: PropTypes.func,
   disabled: PropTypes.bool,
   label: PropTypes.node,
