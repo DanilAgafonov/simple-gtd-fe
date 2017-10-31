@@ -1,27 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import List, { ListItem, ListItemText } from 'components/List';
+import { Flex, Box } from 'grid-styled';
+import TaskCardContainer from 'containers/TaskCardContainer';
 
-const TasksList = ({ tasks }) => (
-  <List>
+const TasksList = ({ tasks, spaceId }) => (
+  <Flex direction="column">
     {tasks.map(task => (
-      <ListItem key={task.id}>
-        <ListItemText
-          primary={task.text}
-        />
-      </ListItem>
+      <Box key={task.id}>
+        <TaskCardContainer {...task} spaceId={spaceId} />
+      </Box>
     ))}
-  </List>
+  </Flex>
 );
 
 TasksList.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]).isRequired,
-    text: PropTypes.string.isRequired,
-  })).isRequired,
+  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  spaceId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 export default TasksList;

@@ -6,4 +6,8 @@ export default class TaskApi {
   create(data) {
     return this.api.post('/tasks', data);
   }
+
+  deleteTask(id) {
+    return this.api.delete(`/tasks/${id}`);
+  }
 }

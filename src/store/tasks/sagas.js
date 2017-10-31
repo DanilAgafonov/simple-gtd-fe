@@ -2,8 +2,11 @@ import { put, takeEvery, call, all, select } from 'redux-saga/effects';
 import { loadSpaceSuccess } from 'store/spaces/actions';
 import {
   CREATE_TASK,
+  DELETE_TASK,
   createTaskSuccess,
   createTaskFail,
+  deleteTaskSuccess,
+  deleteTaskFail,
 } from './actions';
 
 function* createFlow(
@@ -24,12 +27,27 @@ function* createFlow(
       ],
     }));
   } catch (error) {
-    yield put(createTaskFail('Fail.', thunk));
+    yield put(createTaskFail(thunk));
+  }
+}
+
+function* deleteFlow(tasksService, { payload: { id, spaceId }, meta: { thunk } }) {
+  try {
+    yield call([tasksService, 'deleteTask'], id);
+    yield put(deleteTaskSuccess(id, thunk));
+    yield put(loadSpaceSuccess({
+      id: spaceId,
+      tasks: (yield select(state => state.entities.spaces[spaceId].tasks))
+        .filter(tid => +tid !== +id),
+    }));
+  } catch (error) {
+    yield put(deleteTaskFail(thunk));
   }
 }
 
 export default function* ({ apis: { tasks } }) {
   yield all([
     yield takeEvery(CREATE_TASK, createFlow, tasks),
+    yield takeEvery(DELETE_TASK, deleteFlow, tasks),
   ]);
 }

@@ -65,7 +65,7 @@ const SpaceScreen = ({
         </Flex>
         <CreateTaskFormContainer spaceId={space.id} />
       </SpaceHeader>
-      <TasksListContainer tasks={space.tasks} />
+      <TasksListContainer tasks={space.tasks} spaceId={space.id} />
     </Wrapper>
   );
 };
