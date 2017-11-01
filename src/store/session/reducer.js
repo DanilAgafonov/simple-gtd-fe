@@ -26,6 +26,7 @@ export default function (state = getInitialState(), action) {
       return {
         ...getInitialState(),
         message: action.payload.message,
+        isAuthenticated: false,
       };
     case REGISTRATION:
     case REGISTRATION_SUCCESS:

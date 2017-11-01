@@ -5,10 +5,11 @@ import { Switch, Route } from 'react-router-dom';
 import PageNotFound from 'components/PageNotFound';
 import HorizontalLoader from 'components/HorizontalLoader';
 import Button from 'components/Button';
-import LeftPane from 'components/LeftPane';
+import LeftPaneContainer from 'containers/LeftPaneContainer';
 import EmptyScreen from 'components/EmptyScreen';
 import SpaceScreenContainer from 'containers/SpaceScreenContainer';
 import NewSpaceScreenContainer from 'containers/NewSpaceScreenContainer';
+import LogoutContainer from 'containers/LogoutContainer';
 
 const Container = Flex.extend.attrs({
   direction: 'column',
@@ -71,7 +72,7 @@ const MainLayout = ({
     <MainContainer>
       <ContentContainer>
         <LeftPaneWrapper>
-          <LeftPane />
+          <LeftPaneContainer />
         </LeftPaneWrapper>
         <RightPaneWrapper>
           <Switch>
@@ -89,6 +90,11 @@ const MainLayout = ({
               path="/spaces/:id"
               exact
               component={SpaceScreenContainer}
+            />
+            <Route
+              path="/logout"
+              exact
+              component={LogoutContainer}
             />
             <Route
               component={PageNotFound}
